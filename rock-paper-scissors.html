@@ -8,159 +8,148 @@
 
   <script>
 
-  	function computerPlay(){
-  		let computerMove = ""
+    function computerPlay(){
+      let computerMove = ""
+      let possibleMoves = ["rock","scissors","paper"];
 
-  		randomInt = Math.floor(Math.random()*3);
+      computerMove = possibleMoves[Math.floor(Math.random()*3)];
 
-  		if(randomInt==0)
-  		{
-  			computerMove = "rock";
-  		}
-  		else if (randomInt==1)
-  		{
-  			computerMove = "paper";
-  		}
-  		else
-  		{
-  			computerMove = "scissors";
-  		}
+      return computerMove;
+    }
 
-  		return computerMove;
-  	}
+    function playerPlay()
+    {
 
-  	function playerPlay(){
-  		let isValidMove = false;
-  		let playerMove = ""
+      let isValidMove = false;
+      let playerMove = ""
 
-  		while (!isValidMove)
-  		{
-  			let input = ""
-  			input = prompt('Rock, Paper, or Scissors?').toLowerCase()
+      while (!isValidMove)
+      {
+        let input = ""
+        input = prompt('Rock, Paper, or Scissors?').toLowerCase()
 
-  			if(input == "rock" || input == "paper" || input == "scissors")
-  			{
-  				isValidMove = true;
-  				playerMove = input;
-  			}
-  			else
-  			{
-  				console.log('Not a valid move. Please enter your move again.')
-  			}
-  		}
+        if(input == "rock" || input == "paper" || input == "scissors")
+        {
+          isValidMove = true;
+          playerMove = input;
+        }
+        else
+        {
+          console.log('Not a valid move. Please enter your move again.')
+        }
+      }
 
-  		return playerMove;
+      return playerMove;
   
-  	}
+    }
 
-  	function declareWinner(playerSelection,computerSelection)
-  	{
-  		console.log("Player Selection: " + playerSelection);
-  		console.log("Computer Selection: " + computerSelection);
+    function declareWinner(playerSelection,computerSelection)
+    {
+      console.log("Player Selection: " + playerSelection);
+      console.log("Computer Selection: " + computerSelection);
 
-  		if (playerSelection=="rock")
-  		{
-  			if (computerSelection=="paper")
-  			{
-  				return "You Lose! Paper beats Rock";
-  			}
-  			else if (computerSelection=="rock")
-  			{
-  				return "You tie! You both chose rock"; 
-  			}
-  			else
-  			{
-  				return "You Win! Rock beats Scissors";
-  			}
-  		}
+      if (playerSelection=="rock")
+      {
+        if (computerSelection=="paper")
+        {
+          return "You Lose! Paper beats Rock";
+        }
+        else if (computerSelection=="rock")
+        {
+          return "You tie! You both chose rock"; 
+        }
+        else
+        {
+          return "You Win! Rock beats Scissors";
+        }
+      }
 
-  		else if (playerSelection=="scissors")
-  		{
-  			if (computerSelection=="paper")
-  			{
-  				return "You Win! Scissors beats Paper";
-  			}
-  			else if (computerSelection=="rock")
-  			{
-  				return "You Lose! Rock beats Scissors"; 
-  			}
-  			else
-  			{
-  				return "You Tie! You both chose Scissors";
-  			}
-  		}
+      else if (playerSelection=="scissors")
+      {
+        if (computerSelection=="paper")
+        {
+          return "You Win! Scissors beats Paper";
+        }
+        else if (computerSelection=="rock")
+        {
+          return "You Lose! Rock beats Scissors"; 
+        }
+        else
+        {
+          return "You Tie! You both chose Scissors";
+        }
+      }
 
-  		else
-  		{
-  			if (computerSelection=="paper")
-  			{
-  				return "You Tie! You both chose Paper";
-  			}
-  			else if (computerSelection=="rock")
-  			{
-  				return "You Win! Paper beats Rock"; 
-  			}
-  			else
-  			{
-  				return "You Lose! Scissors beats Paper";
-  			}
-  		}
-  		
+      else
+      {
+        if (computerSelection=="paper")
+        {
+          return "You Tie! You both chose Paper";
+        }
+        else if (computerSelection=="rock")
+        {
+          return "You Win! Paper beats Rock"; 
+        }
+        else
+        {
+          return "You Lose! Scissors beats Paper";
+        }
+      }
+      
 
-  	}
+    }
 
-  	function playGame (){
-  		numOfRounds = 5;
-  		roundCounter = 0;
+    function playGame (){
+      let numOfRounds = 5;
+      let roundCounter = 0;
 
-  		winCounter = 0;
-  		lossCounter = 0;
-  		tieCounter = 0;
+      let winCounter = 0;
+      let lossCounter = 0;
+      let tieCounter = 0;
 
-  		while (roundCounter < numOfRounds)
-  		{
+      while (roundCounter < numOfRounds)
+      {
 
+        let playerSelection="";
+        let computerSelection="";
+        let outcome = "";
 
-  			let playerSelection="";
- 			let computerSelection="";
- 			let outcome = "";
+        playerSelection = playerPlay();
+        computerSelection = computerPlay();
 
-  			playerSelection = playerPlay();
-  			computerSelection = computerPlay();
+        console.log("_____________________");
+        console.log("Round: " + (roundCounter+1));
+        console.log("_____________________");
 
-  			console.log("_____________________");
-  			console.log("Round: " + (roundCounter+1));
-  			console.log("_____________________");
+        outcome = declareWinner(playerSelection,computerSelection);
+        console.log(outcome);
 
-  			outcome = declareWinner(playerSelection,computerSelection);
-  			console.log(outcome);
+      
+        if(outcome.includes("Win"))
+        {
+          winCounter += 1;
+        }
+        else if (outcome.includes("Lose"))
+        {
+          lossCounter += 1;
+        }
+        else
+        {
+          tieCounter += 1;
+        }
 
-  		
-  			if(outcome.includes("Win"))
-  			{
-  				winCounter += 1;
-  			}
-  			else if (outcome.includes("Lose"))
-  			{
-  				lossCounter += 1;
-  			}
-  			else
-  			{
-  				tieCounter += 1;
-  			}
+        roundCounter += 1;
+      }
 
-  			roundCounter += 1;
-  		}
-
-  		console.log("_____________________");
-  		console.log("Summary:");
-  		console.log("_____________________");
-  		console.log("Wins: " + winCounter);
-  		console.log("Losses: " + lossCounter);
-  		console.log("Ties: " + tieCounter);
- 	
-  	}
-  	
+      console.log("_____________________");
+      console.log("Summary:");
+      console.log("_____________________");
+      console.log("Wins: " + winCounter);
+      console.log("Losses: " + lossCounter);
+      console.log("Ties: " + tieCounter);
+  
+    }
+    
 
   </script>
 </body>
