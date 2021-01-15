@@ -1,3 +1,11 @@
+let scoreCount = {
+  winCounter: 0,
+  lossCounter: 0,
+  tieCounter: 0,
+  roundCounter:1
+};
+
+
 function computerPlay(){
 
   let computerMove = ""
@@ -71,28 +79,8 @@ function declareWinner(playerSelection,computerSelection)
 
 }
 
-let scoreCount = {
-  winCounter: 0,
-  lossCounter: 0,
-  tieCounter: 0,
-  roundCounter:1
-};
-
-function playGame (playerMove){
-
-
-  let playerSelection="";
-  let computerSelection="";
-  let outcome = "";
-
-
-  playerSelection = this.id;
-  computerSelection = computerPlay();
-
-  outcome = declareWinner(playerSelection,computerSelection);
-  console.log(outcome);
-
-
+function tallyScore(outcome){
+  
   if(outcome.includes("Win"))
   {
     scoreCount.winCounter += 1;
@@ -124,13 +112,27 @@ function playGame (playerMove){
   {
     scoreCount.roundCounter += 1;
   }
+}
 
+function playGame (playerMove){
+
+
+  let playerSelection="";
+  let computerSelection="";
+  let outcome = "";
+
+
+  playerSelection = this.id;
+  computerSelection = computerPlay();
+
+  outcome = declareWinner(playerSelection,computerSelection);
+
+  tallyScore(outcome);
 }
 
 
 
 function theDomHasLoaded(e) {
-
 
   const moves = document.querySelectorAll(".moves");
   moves.forEach(move => {
